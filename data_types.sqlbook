@@ -164,6 +164,123 @@ SELECT CURRENT_TIME;
 -- 15:04:37.150291+00
 -- SQLBook: Code
 SELECT LOCALTIME
+-- SQLBook: Markup
+### UUID
+
+- 128 bits uniqueness across databases
+- 3rd party algo `uuid-ossp`
+-- SQLBook: Code
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+-- SQLBook: Code
+SELECT  uuid_generate_v1();
+
+-- use mac address ,current time
+-- SQLBook: Code
+SELECT uuid_generate_v4();
+-- SQLBook: Code
+CREATE TABLE table_uuid(
+    product_id UUID DEFAULT uuid_generate_v1(),
+    product_name VARCHAR(100) not null
+);
+-- SQLBook: Code
+INSERT INTO table_uuid (product_name)
+VALUES
+    ('product 1')
+-- SQLBook: Code
+SELECT * FROM table_uuid
+-- SQLBook: Code
+INSERT INTO table_uuid (product_name)
+VALUES
+    ('product 2'),
+    ('product 3'),
+    ('product 4')
+-- SQLBook: Code
+SELECT * FROM table_uuid
+-- SQLBook: Code
+ALTER TABLE table_uuid 
+Alter product_id set default uuid_generate_v4();
+-- SQLBook: Code
+INSERT INTO table_uuid (product_name)
+VALUES
+    ('product 5'),
+    ('product 6'),
+    ('product 7')
+-- SQLBook: Code
+SELECT * FROM table_uuid
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
 -- SQLBook: Code
 
 -- SQLBook: Code
