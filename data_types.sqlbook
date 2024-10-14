@@ -226,20 +226,34 @@ VALUES
 SELECT * FROM table_array
 -- SQLBook: Code
 SELECT name,array_column[1] FROM table_array
--- SQLBook: Code
+-- SQLBook: Markup
+## H store
 
+- key-value pair
+- 3rd party `hstore` library
 -- SQLBook: Code
-
+CREATE EXTENSION IF NOT EXISTS "hstore";
 -- SQLBook: Code
-
+CREATE TABLE table_hstore(
+    book_id SERIAL PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    book_info hstore
+)
 -- SQLBook: Code
-
+SELECT * FROM table_hstore
 -- SQLBook: Code
-
+INSERT INTO table_hstore (title,book_info)
+VALUES
+    ('book1',
+    '
+        "publisher" => "publisher1",
+        "author" => "author1",
+        "price" => 10
+    ')
 -- SQLBook: Code
-
+SELECT * FROM table_hstore
 -- SQLBook: Code
-
+SELECT book_info -> 'publisher' from table_hstore
 -- SQLBook: Code
 
 -- SQLBook: Code
