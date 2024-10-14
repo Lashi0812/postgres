@@ -420,3 +420,231 @@ INSERT INTO movies_revenues (revenue_id,movie_id,revenues_domestic,revenues_inte
 ('50','22','124.9','484.1'),
 ('52','15','59.3','115.5'),
 ('53','47','54.5','104.7');
+-- SQLBook: Code
+CREATE TABLE customers (
+    customer_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(150),
+    last_name VARCHAR(150)
+);
+-- SQLBook: Code
+SELECT * FROM customers
+-- SQLBook: Code
+INSERT INTO customers (first_name,last_name)
+VALUES ('John','Doe');
+-- SQLBook: Code
+SELECT * FROM customers;
+-- SQLBook: Code
+
+-- SQLBook: Code
+INSERT INTO customers (first_name)
+VALUES ('John''O');
+-- SQLBook: Code
+INSERT INTO customers (first_name)
+VALUES ('John''O');
+-- SQLBook: Code
+SELECT * FROM customers;
+-- SQLBook: Code
+INSERT INTO customers (first_name)
+VALUES ('John''O') RETURNING * ;
+-- SQLBook: Code
+SELECT * FROM customers;
+-- SQLBook: Code
+UPDATE customers
+SET
+    last_name = 'change',
+    first_name = 'John'
+WHERE
+    customer_id = 1
+-- SQLBook: Code
+SELECT * FROM customers;
+-- SQLBook: Code
+ALTER TABLE customers ADD COLUMN is_enable VARCHAR(2);
+-- SQLBook: Code
+SELECT * FROM customers;
+-- SQLBook: Code
+UPDATE customers SET is_enable = 'Y'
+-- SQLBook: Code
+SELECT * FROM customers;
+-- SQLBook: Code
+DELETE FROM customers
+WHERE last_name = 'change'
+-- SQLBook: Code
+SELECT * FROM customers;
+-- SQLBook: Code
+DELETE FROM customers;
+-- SQLBook: Code
+SELECT * FROM customers
+-- SQLBook: Markup
+## UPSERT
+
+Syntax for UPSERT:  
+```sql
+Insert Into table_name (column1) 
+values (value1)
+on conflict target 
+do update set column1=value1;
+```
+-- SQLBook: Code
+CREATE Table t_tages(
+    id serial primary key,
+    tag TEXT UNIQUE,
+    update_date TIMESTAMP DEFAULT NOW()
+)
+-- SQLBook: Code
+SELECT * FROM t_tages;
+-- SQLBook: Code
+INSERT INTO t_tages(tag)
+VALUES
+('pen'),
+('pencil'); 
+-- SQLBook: Code
+SELECT * FROM t_tages;
+-- SQLBook: Code
+INSERT INTO t_tages (tag)
+VALUES ('pen')
+ON CONFLICT (tag)
+DO NOTHING;
+-- SQLBook: Code
+SELECT * FROM t_tages;
+-- SQLBook: Code
+INSERT INTO t_tages (tag)
+VALUES ('pen')
+ON CONFLICT (tag)
+DO 
+    UPDATE set 
+        tag = EXCLUDED.tag,
+        update_date = now();
+-- SQLBook: Markup
+## Query
+-- SQLBook: Code
+SELECT * FROM movies;
+-- SQLBook: Code
+SELECT * FROM actors;
+-- SQLBook: Code
+SELECT first_name FROM actors;
+-- SQLBook: Code
+SELECT first_name,last_name FROM actors;
+-- SQLBook: Code
+SELECT movie_name,movie_lang FROM movies;
+-- SQLBook: Markup
+### Adding alias to column name
+-- SQLBook: Code
+SELECT first_name AS firstName FROM actors
+-- SQLBook: Code
+SELECT first_name As "First Name" FROM actors
+-- SQLBook: Code
+SELECT movie_name AS "Movie",movie_lang AS "Language" FROM movies
+-- SQLBook: Code
+SELECT 
+    movie_name AS "Movie Name",
+    movie_lang AS "Movie Language"
+FROM movies;
+-- SQLBook: Code
+SELECT 
+    movie_name "Movie Name",
+    movie_lang "Movie Language"
+FROM movies;
+-- SQLBook: Markup
+### Assing column to Expression 
+-- SQLBook: Code
+SELECT first_name,last_name FROM actors;
+-- SQLBook: Code
+SELECT first_name || last_name FROM actors;
+-- SQLBook: Code
+SELECT first_name || ' ' || last_name FROM actors;
+-- SQLBook: Code
+SELECT 
+    first_name || ' ' || last_name  AS "Full Name"
+FROM actors;
+-- SQLBook: Code
+SELECT 2*10;
+-- SQLBook: Markup
+### Using Order By
+-- SQLBook: Code
+SELECT * FROM movies
+ORDER BY
+    release_date ASC;
+-- SQLBook: Code
+SELECT * FROM movies
+ORDER BY
+    release_date;
+-- SQLBook: Code
+SELECT * FROM movies
+ORDER BY
+    release_date DESC;
+-- SQLBook: Code
+SELECT * FROM movies
+ORDER BY
+    release_date DESC,
+    movie_name ASC;
+-- SQLBook: Markup
+### Using Expression : Length of actor name
+-- SQLBook: Code
+SELECT first_name,LENGTH(first_name) FROM actors;
+-- SQLBook: Code
+SELECT 
+    first_name,
+    LENGTH(first_name) AS len
+FROM actors
+ORDER BY len DESC;
+-- SQLBook: Markup
+### using column number
+-- SQLBook: Code
+SELECT * FROM actors;
+-- SQLBook: Code
+SELECT 
+    first_name,
+    last_name,
+    date_of_birth
+ FROM actors
+ ORDER BY 
+    1 ASC,
+    3 DESC;
+-- SQLBook: Markup
+### Nulls first and Nulls last(default)
+-- SQLBook: Code
+SELECT 
+    first_name,
+    LENGTH(first_name) AS len
+FROM actors
+ORDER BY len ASC;
+-- SQLBook: Code
+SELECT 
+    first_name,
+    LENGTH(first_name) AS len
+FROM actors
+ORDER BY len ASC NULLS FIRST;
+-- SQLBook: Markup
+### distinct value
+
+-- SQLBook: Code
+SELECT * FROM movies;
+-- SQLBook: Code
+SELECT movie_lang FROM movies
+-- SQLBook: Code
+SELECT 
+    DISTINCT movie_lang 
+FROM movies
+-- SQLBook: Code
+SELECT 
+    DISTINCT movie_lang 
+FROM movies
+ORDER BY
+    movie_lang
+-- SQLBook: Code
+SELECT 
+    DISTINCT director_id
+FROM movies
+-- SQLBook: Code
+SELECT 
+    DISTINCT movie_lang,director_id
+FROM movies
+ORDER BY
+    movie_lang;
+-- SQLBook: Code
+SELECT 
+    DISTINCT *
+FROM movies
+ORDER BY
+    movie_lang;
+-- SQLBook: Code
