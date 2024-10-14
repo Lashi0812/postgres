@@ -87,18 +87,35 @@ SELECT
 -- Adam	"Adam      "
 -- SQLBook: Code
 SELECT 'Humanity is an illusion.As long as you love humans, so long as you love yourself, humanity will never be the same again.'::text;
--- SQLBook: Code
+-- SQLBook: Markup
+## Number
 
+- smallint,integer,bigint
+- database will give error if you try to store a number larger than range
+- auto increment integer data type : SERIAL
+  - smallserial,serial,bigserial
+- numeric(precision,scale)
 -- SQLBook: Code
-
+CREATE TABLE table_numbers(
+    col_numeric NUMERIC(20,5),
+    col_real REAL,
+    col_double_precision DOUBLE PRECISION
+);
 -- SQLBook: Code
-
+SELECT * FROM table_numbers;
 -- SQLBook: Code
+-- Active: 1728889588376@@127.0.0.1@5432@learning@public
+INSERT INTO table_numbers (col_numeric,col_real,col_double_precision)
+VALUES
+    (.9,.9,.9),
+    (3.13579,3.13579,3.13579),
+    (4.1357987654,4.1357987654,4.1357987654);
 
+-- 0.90000	0.9	0.9
+-- 3.13579	3.13579	3.13579
+-- 4.13580	4.135799	4.1357987654
 -- SQLBook: Code
-
--- SQLBook: Code
-
+SELECT * FROM table_numbers;
 -- SQLBook: Code
 
 -- SQLBook: Code
