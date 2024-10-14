@@ -207,16 +207,25 @@ VALUES
     ('product 7')
 -- SQLBook: Code
 SELECT * FROM table_uuid
--- SQLBook: Code
+-- SQLBook: Markup
+## Array data type
 
+- integer[]
+- character[]
 -- SQLBook: Code
-
+CREATE TABLE table_array(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    array_column VARCHAR(100)[]
+)
 -- SQLBook: Code
-
+INSERT INTO table_array (name,array_column)
+VALUES
+    ('Adam',Array['123124636','1242135423'])
 -- SQLBook: Code
-
+SELECT * FROM table_array
 -- SQLBook: Code
-
+SELECT name,array_column[1] FROM table_array
 -- SQLBook: Code
 
 -- SQLBook: Code
