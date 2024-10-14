@@ -116,34 +116,54 @@ VALUES
 -- 4.13580	4.135799	4.1357987654
 -- SQLBook: Code
 SELECT * FROM table_numbers;
--- SQLBook: Code
+-- SQLBook: Markup
+## Date/Time
 
+- Date,Time,Timestamp,TimeStamptz,Interval
 -- SQLBook: Code
-
+CREATE Table table_date (
+    id serial primary key,
+    employee_name VARCHAR(100) not null,
+    hire_date DATE NOT NULL,
+    add_date DATE DEFAULT CURRENT_DATE
+);
 -- SQLBook: Code
-
+SELECT * FROM table_date
 -- SQLBook: Code
-
+INSERT INTO table_date (employee_name,hire_date)
+VALUES
+    ('Adam','2020-08-04'),
+    ('Linda','2020-08-05');
 -- SQLBook: Code
-
+SELECT * FROM table_date
 -- SQLBook: Code
-
+SELECT CURRENT_DATE;
 -- SQLBook: Code
-
+SELECT NOW();
+-- 2024-10-14 14:57:53.095224+00
+-- SQLBook: Markup
+### Time
 -- SQLBook: Code
-
+CREATE TABLE table_time(
+    id SERIAL PRIMARY KEY,
+    class_name VARCHAR(100) NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL
+)
 -- SQLBook: Code
-
+SELECT * FROM table_time
 -- SQLBook: Code
-
+INSERT INTO table_time (class_name,start_time,end_time)
+VALUES
+    ('Math','08:00:00','09:00:00'),
+    ('Chemistry','09:01:00','10:00:00');
 -- SQLBook: Code
-
+SELECT * FROM table_time
 -- SQLBook: Code
-
+SELECT CURRENT_TIME;
+-- 15:04:37.150291+00
 -- SQLBook: Code
-
--- SQLBook: Code
-
+SELECT LOCALTIME
 -- SQLBook: Code
 
 -- SQLBook: Code
