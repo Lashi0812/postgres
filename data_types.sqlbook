@@ -56,18 +56,37 @@ WHERE is_available
 ALTER TABLE table_boolean 
 ALTER COLUMN is_available 
 SET DEFAULT true;
--- SQLBook: Code
+-- SQLBook: Markup
+## Character data types
 
--- SQLBook: Code
+- CHAR, VARCHAR, TEXT
 
+Character Type                             Notes
+---------------------                   -----------
+CHARACTER(n),CHAR(n)                    Fixed-length character string with blank padding
+CHaracter varying(n),VARCHAR(n)         Variable-length character with length limit without blank
+TEXT,VARCHAR                            Variable unlimited-length character string
 -- SQLBook: Code
+SELECT CAST('Adam' AS CHARACTER(10)) as "NAME";
 
+-- "Adam      "
 -- SQLBook: Code
-
+SELECT 'Adam'::char(10) as "Name";
+-- "Adam      "
 -- SQLBook: Code
+SELECT 
+    CAST('Adam' AS CHARACTER(10)) as "NAME1",
+    'Adam'::char(10) as "Name2";
 
+-- "Adam      	"Adam      "
 -- SQLBook: Code
+SELECT 
+    CAST('Adam' AS VARCHAR(10)) as "NAME1",
+    'Adam'::char(10) as "Name2";
 
+-- Adam	"Adam      "
+-- SQLBook: Code
+SELECT 'Humanity is an illusion.As long as you love humans, so long as you love yourself, humanity will never be the same again.'::text;
 -- SQLBook: Code
 
 -- SQLBook: Code
