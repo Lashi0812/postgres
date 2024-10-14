@@ -647,4 +647,339 @@ SELECT
 FROM movies
 ORDER BY
     movie_lang;
+-- SQLBook: Markup
+## Filter
+-- SQLBook: Markup
+### Using Where Clause
+
+1. along with three type of operator (Comparison, Logical, Arithmatic)
+-- SQLBook: Code
+SELECT *  FROM movies;
+-- SQLBook: Code
+SELECT * FROM movies
+WHERE
+    movie_lang = 'English';
+-- SQLBook: Code
+SELECT * FROM movies
+WHERE
+    movie_lang = 'English' 
+    AND age_certificate = '18';
+-- SQLBook: Code
+SELECT * FROM movies
+WHERE
+    movie_lang = 'English' 
+    OR movie_lang = 'Chinese'
+ORDER BY
+    movie_lang;
+-- SQLBook: Code
+SELECT *
+FROM movies
+WHERE (
+        movie_lang = 'English'
+        OR movie_lang = 'Chinese'
+    )
+    AND age_certificate = '12'
+-- SQLBook: Markup
+### Can we use the WHERE before FROM? NO
+-- SQLBook: Code
+SELECT * FROM movies
+WHERE
+    movie_lang = 'English';
+-- SQLBook: Code
+SELECT * 
+WHERE
+    movie_lang = 'English';
+FROM movies
+-- SQLBook: Markup
+### Can we use the WHERE after ORDER BY? NO
+-- SQLBook: Code
+SELECT * FROM movies
+WHERE
+    movie_lang = 'English'
+ORDER BY
+    movie_name;
+-- SQLBook: Code
+SELECT * FROM movies
+ORDER BY
+    movie_name
+WHERE
+    movie_lang = 'English';
+-- SQLBook: Markup
+### Can we use column name aliases in WHERE CLAUSE? NO
+-- SQLBook: Code
+SELECT
+    first_name,
+    last_name as "surname"
+FROM actors
+WHERE
+    last_name = 'Allen'
+-- SQLBook: Code
+SELECT
+    first_name,
+    last_name as "surname"
+FROM actors
+WHERE
+    surname = 'Allen'
+-- SQLBook: Markup
+### What is the order of executin of where claues?
+
+-- FROM > WHERE > SELECT > ORDER BY
+-- SQLBook: Code
+SELECT * FROM movies
+WHERE
+    movie_lang = 'English'
+ORDER BY
+    movie_name ASC;
+-- SQLBook: Markup
+### Logical Operators
+
+1. equal - = 
+2. Not - <>,!=
+
+remain all same
+
+-- SQLBook: Code
+SELECT * FROM movies
+WHERE
+    movie_length > 100
+ORDER BY
+    movie_length;
+-- SQLBook: Code
+SELECT * FROM movies
+WHERE
+    movie_length >= 100
+ORDER BY
+    movie_length;
+-- SQLBook: Code
+SELECT * FROM movies
+WHERE
+    movie_length < 100
+ORDER BY
+    movie_length;
+-- SQLBook: Code
+SELECT * FROM movies
+WHERE
+    movie_length <= 100
+ORDER BY
+    movie_length;
+-- SQLBook: Markup
+### Can we work with date data type?
+
+- Format `YYYY-MM-DD`
+-- SQLBook: Code
+SELECT * FROM movies
+WHERE
+    release_date > '2000-01-01';
+-- SQLBook: Code
+SELECT *  FROM movies
+WHERE
+    movie_lang > 'English'
+
+-- ASCII values are compared
+-- SQLBook: Code
+SELECT * FROM movies
+WHERE
+    movie_lang != 'English'
+-- SQLBook: Code
+SELECT * FROM movies
+WHERE
+    movie_lang <> 'English'
+-- SQLBook: Markup
+### Limit
+-- SQLBook: Code
+SELECT * FROM movies
+ORDER BY
+    movie_length DESC
+LIMIT 5;
+-- SQLBook: Code
+SELECT * FROM directors;
+-- SQLBook: Code
+SELECT * FROM directors
+WHERE
+    nationality = 'American'
+ORDER BY
+    date_of_birth ASC
+LIMIT 5;
+-- SQLBook: Code
+SELECT * FROM actors
+WHERE 
+    gender = 'F'
+ORDER BY
+    date_of_birth DESC
+LIMIT 10;
+-- SQLBook: Code
+SELECT * FROM movies_revenues
+ORDER BY
+    revenues_domestic DESC NULLS LAST
+LIMIT 10
+-- SQLBook: Code
+SELECT * FROM movies_revenues
+ORDER BY
+    revenues_domestic ASC NULLS LAST
+LIMIT 10
+-- SQLBook: Markup
+### Offset
+-- SQLBook: Code
+SELECT * FROM movies_revenues
+ORDER BY
+    revenues_domestic ASC NULLS LAST
+LIMIT 10 OFFSET 5
+-- SQLBook: Markup
+### Fetch
+-- SQLBook: Code
+SELECT * FROM movies
+FETCH FIRST 1 ROW ONLY;
+-- SQLBook: Code
+SELECT * FROM movies
+ORDER BY
+    movie_length DESC
+FETCH FIRST 5 ROWS ONLY;
+-- SQLBook: Code
+SELECT * FROM directors
+WHERE
+    nationality = 'American'
+ORDER BY
+    date_of_birth ASC
+FETCH FIRST 5 ROWS ONLY;
+-- SQLBook: Code
+SELECT * FROM actors
+WHERE
+    gender = 'F'
+ORDER BY
+    date_of_birth DESC
+FETCH FIRST 10 ROWS ONLY;
+-- SQLBook: Code
+SELECT * FROM movies
+ORDER BY
+    movie_length DESC
+OFFSET 4
+FETCH FIRST 5 ROWS ONLY;
+-- SQLBook: Markup
+### In and Not in the list
+-- SQLBook: Code
+SELECT * FROM movies
+WHERE
+    movie_lang IN ('English', 'Chinese','Japanese')
+ORDER BY movie_lang
+-- SQLBook: Code
+SELECT * FROM movies
+WHERE
+    age_certificate IN ('12','PG')
+
+-- SQLBook: Code
+SELECT * FROM movies
+WHERE
+    director_id NOT IN ('13','10')
+ORDER BY
+    director_id 
+-- SQLBook: Code
+SELECT * FROM movies
+WHERE
+    director_id NOT IN (13,10)
+ORDER BY
+    director_id 
+-- SQLBook: Code
+SELECT * FROM actors
+WHERE
+    actor_id NOT IN (1,2,3,4)
+ORDER BY
+    actor_id
+-- SQLBook: Markup
+### Between and Not Between
+-- SQLBook: Code
+SELECT * FROM actors
+WHERE
+    date_of_birth BETWEEN '1991-01-01' AND '1995-12-31'
+ORDER BY
+    date_of_birth
+-- SQLBook: Code
+SELECT * FROM movies_revenues
+WHERE
+    revenues_domestic BETWEEN 100 AND 300
+ORDER BY
+    revenues_domestic
+
+-- SQLBook: Markup
+### Like and ILike 
+
+- Pattern Matching
+  - `%` any sequence of zero or more characters
+  - `_` any single character
+- `Like` case sensitive but `ILike` case insensitive
+-- SQLBook: Code
+SELECT 'hello' LIKE 'hello';
+-- SQLBook: Code
+SELECT 'hello' LIKE 'h%';
+-- SQLBook: Code
+SELECT 'hello' LIKE '%e%';
+-- SQLBook: Code
+SELECT 'hello' LIKE '%ll';
+-- SQLBook: Code
+SELECT 'hello' LIKE '_ello';
+-- SQLBook: Code
+SELECT * FROM actors
+WHERE
+    first_name LIKE 'A%'
+-- SQLBook: Code
+SELECT * FROM actors
+WHERE
+    last_name LIKE '%a'
+ORDER BY
+    last_name
+-- SQLBook: Code
+SELECT * FROM actors
+WHERE
+    LENGTH(first_name) = 5
+ORDER BY
+    first_name
+-- SQLBook: Code
+SELECT * FROM actors
+WHERE
+    first_name LIKE '_l%'
+ORDER BY
+    first_name
+-- SQLBook: Code
+SELECT * FROM actors
+WHERE
+    first_name LIKE '%Tim%'
+-- SQLBook: Code
+SELECT * FROM actors
+WHERE
+    first_name LIKE '%tim%'
+-- SQLBook: Code
+SELECT * FROM actors
+WHERE
+    first_name ILIKE '%tim%'
+-- SQLBook: Markup
+### Concat
+
+- use `||` to concatenate strings
+- use `CONCAT` to concatenate strings
+- with separators `Concat_ws(separator, ...)`
+-- SQLBook: Code
+SELECT 'Hello' || 'World' AS new_string;
+-- SQLBook: Code
+SELECT 'Hello' || ' ' || 'World' AS new_string;
+-- SQLBook: Code
+SELECT concat_ws(' ','hello','world');
+-- SQLBook: Code
+SELECT concat(first_name,last_name) FROM actors
+-- SQLBook: Code
+SELECT concat_ws(' ',first_name,last_name) FROM actors
+-- SQLBook: Code
+SELECT concat_ws(' ',first_name,last_name,date_of_birth) FROM actors
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
 -- SQLBook: Code
