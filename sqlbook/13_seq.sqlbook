@@ -1,0 +1,184 @@
+-- SQLBook: Markup
+## Sequence
+-- SQLBook: Markup
+### Create Sequence
+-- SQLBook: Code
+CREATE SEQUENCE IF NOT EXISTS test_seq
+-- SQLBook: Code
+SELECT nextval('test_seq');
+-- SQLBook: Code
+SELECT currval('test_seq')
+-- SQLBook: Code
+SELECT setval('test_seq',100)
+-- SQLBook: Code
+SELECT currval('test_seq')
+-- SQLBook: Code
+CREATE SEQUENCE IF NOT EXISTS test_seq2
+START WITH 100
+-- SQLBook: Code
+SELECT nextval('test_seq2');
+-- SQLBook: Code
+ALTER SEQUENCE test_seq2 RESTART WITH 1000;
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
