@@ -1,0 +1,293 @@
+-- SQLBook: Markup
+## Constraint
+
+1. Table level 
+2. Column level
+
+Type of constraint
+
+1. Not null
+2. Unique
+3. Default
+4. Primary key -- Table level
+5. Foreign key -- Table level
+6. Check
+-- SQLBook: Markup
+### Not Null constraint
+
+Syntax
+
+```sql
+CREATE TABLE table_name (
+    column_name column_type NOT NULL
+)
+```
+-- SQLBook: Code
+CREATE TABLE table_nn(
+    id serial primary key,
+    tag TEXT NOT NULL
+)
+-- SQLBook: Code
+SELECT * FROM table_nn
+-- SQLBook: Code
+INSERT INTO table_nn (tag)
+VALUES 
+    ('a'),
+    ('b'),
+    ('c'),
+    ('d'),
+    ('e')
+-- SQLBook: Code
+SELECT * FROM table_nn
+-- SQLBook: Code
+INSERT INTO table_nn (tag)
+VALUES
+    (NULL)
+-- SQLBook: Code
+INSERT INTO table_nn(tag)
+VALUES ('')
+-- SQLBook: Code
+SELECT * FROM table_nn
+-- SQLBook: Markup
+## NOT NULL EXISTING TABLE
+-- SQLBook: Code
+CREATE TABLE table_nn2(
+    id SERIAL PRIMARY KEY,
+    tag TEXT
+)
+-- SQLBook: Code
+SELECT * FROM table_nn2
+-- SQLBook: Code
+INSERT INTO table_nn2(tag) VALUES(NULL)
+-- SQLBook: Code
+ALTER TABLE table_nn2
+ALTER COLUMN tag SET NOT NULL
+-- SQLBook: Markup
+### Unique Constraint
+
+Syntax
+
+```sql 
+CREATE TABLE table_name (
+    column_name data_type UNIQUE,
+)
+```
+-- SQLBook: Code
+CREATE TABLE table_email(
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE
+)
+-- SQLBook: Code
+SELECT * FROM table_email
+-- SQLBook: Code
+INSERT INTO table_email(email)
+VALUES
+    ('x5zWu@example.com')
+-- SQLBook: Code
+INSERT INTO table_email(email)
+VALUES
+    ('x5zWu@example.com')
+-- SQLBook: Markup
+#### Multiple Unique Colume
+-- SQLBook: Code
+CREATE TABLE table_product (
+    product_id SERIAL PRIMARY KEY,
+    product_code VARCHAR(10),
+    product_name TEXT
+);
+-- SQLBook: Code
+ALTER TABLE table_product
+ADD CONSTRAINT unique_product UNIQUE (product_code,product_name)
+-- SQLBook: Code
+INSERT INTO table_product(product_code,product_name) 
+VALUES('A','Apple');
+-- SQLBook: Code
+SELECT * FROM table_product
+-- SQLBook: Code
+INSERT INTO table_product(product_code,product_name) 
+VALUES('A','Aaa');
+-- SQLBook: Code
+SELECT * FROM table_product
+-- SQLBook: Markup
+## Default Constratint
+-- SQLBook: Code
+CREATE TABLE employees (
+    employee_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    is_enabled BOOLEAN DEFAULT TRUE
+)
+-- SQLBook: Code
+SELECT * FROM employees;
+-- SQLBook: Code
+INSERT INTO employees(first_name,last_name)
+VALUES ('John','Doe');
+-- SQLBook: Code
+SELECT * FROM employees
+-- SQLBook: Code
+ALTER TABLE employees
+ALTER COLUMN is_enabled SET DEFAULT 'N'
+-- SQLBook: Code
+INSERT INTO employees(first_name,last_name)
+VALUES('Mary','Doe');
+-- SQLBook: Code
+SELECT * FROM employees
+-- SQLBook: Code
+ALTER TABLE employees
+ALTER COLUMN is_enabled DROP DEFAULT
+-- SQLBook: Code
+INSERT INTO employees(first_name,last_name)
+VALUES('Mary','Doe');
+-- SQLBook: Code
+SELECT * FROM employees
+-- SQLBook: Markup
+## Primary Key
+
+- One Primary Key per table
+- Primary Keys must be unique
+- Primary Keys cannot be NULL
+- Uniquely indicates a row in a table
+- Muliple column can be Primary Key then called composite key
+-- SQLBook: Code
+CREATE TABLE table_item (
+    item_id SERIAL PRIMARY KEY,
+    item_name VARCHAR(100) NOT NULL
+)
+-- SQLBook: Code
+SELECT * FROM table_item
+-- SQLBook: Code
+INSERT INTO table_item (item_name) VALUES ('item 1');
+-- SQLBook: Code
+SELECT * FROM table_item
+-- SQLBook: Code
+ALTER TABLE table_item
+DROP CONSTRAINT table_item_pkey;
+-- SQLBook: Code
+ALTER TABLE table_item
+ADD PRIMARY KEY (item_id);
+-- SQLBook: Markup
+## Foreign Key
+
+1. is column or group of column in table that refer to primary key of other table
+syntax
+```sql
+Create Table table_name(
+    Foreign Key(column_name) References table_name(column_name)
+)
+```
+-- SQLBook: Markup
+## Table without foreign key
+-- SQLBook: Code
+CREATE TABLE t_products (
+    product_id INT PRIMARY KEY,
+    product_name VARCHAR(100) NOT NULL,
+    supplier_id INTEGER NOT NULL
+);
+-- SQLBook: Code
+CREATE TABLE t_suppliers  (
+    supplier_id INT PRIMARY KEY,
+    supplier_name VARCHAR(50) NOT NULL
+)
+-- SQLBook: Code
+SELECT * FROM t_products
+
+-- SQLBook: Code
+SELECT * FROM t_suppliers
+-- SQLBook: Code
+INSERT INTO t_suppliers(supplier_id,supplier_name) 
+VALUES
+    ('1','Supplier 1'),
+    ('2','Supplier 2');
+-- SQLBook: Code
+INSERT INTO t_products(product_id,product_name,supplier_id) 
+VALUES
+    ('1', 'product1', '1'),
+    ('2', 'product2', '2');
+-- SQLBook: Code
+INSERT INTO t_products(product_id,product_name,supplier_id) 
+VALUES
+    ('3', 'product10', '10'),
+    ('4', 'product20', '20');
+-- SQLBook: Code
+SELECT * FROM t_products
+-- SQLBook: Markup
+## With Foreign Keys
+-- SQLBook: Code
+DROP TABLE t_products;
+DROP TABLE t_suppliers;
+-- SQLBook: Code
+CREATE TABLE t_supplier (
+    supplier_id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+);
+
+-- Child table since it is a foreign key
+-- SQLBook: Code
+CREATE TABLE t_product (
+    product_id  INT PRIMARY KEY,
+    product_name VARCHAR(50) NOT NULL,
+    supplier_id INT NOT NULL,
+    FOREIGN KEY (supplier_id) REFERENCES t_supplier (supplier_id)
+)
+
+-- Parent table since it has a foreign key Reference
+-- SQLBook: Code
+INSERT INTO t_supplier(supplier_id,name) 
+VALUES
+(1,'Supplier 1'),
+(2,'Supplier 2');
+-- SQLBook: Code
+SELECT * FROM t_supplier
+-- SQLBook: Code
+INSERT INTO t_product(product_id,product_name,supplier_id) 
+VALUES
+    (1, 'p1', 1),
+    (2, 'p2', 2);
+-- SQLBook: Code
+SELECT * FROM t_product
+-- SQLBook: Code
+INSERT INTO t_product(product_id,product_name,supplier_id) 
+VALUES
+    (3, 'p3', 100);
+-- SQLBook: Code
+DELETE FROM t_supplier WHERE supplier_id = 1
+-- SQLBook: Markup
+## CHECK Constraint
+-- SQLBook: Code
+CREATE TABLE staffs (
+    staff_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    birth_date DATE CHECK(birth_date > '1900-01-01'),
+    join_date DATE CHECK(join_date > birth_date),
+    salary NUMERIC CHECK(salary > 0)
+);
+-- SQLBook: Code
+SELECT * FROM staffs
+-- SQLBook: Code
+INSERT INTO staffs(first_name,last_name,birth_date,join_date,salary) 
+VALUES
+    ('John','Doe','1999-01-01','2010-01-01',1000);
+-- SQLBook: Code
+SELECT * FROM staffs
+-- SQLBook: Code
+INSERT INTO staffs(first_name,last_name,birth_date,join_date,salary) 
+VALUES
+    ('Elena','Smith','2010-01-01','2010-01-01',100000);
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
