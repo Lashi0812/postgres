@@ -1,0 +1,177 @@
+-- SQLBook: Markup
+## Type Conversion
+
+1. Implicit Conversion
+2. Explicit Conversion -- CAST or ::
+-- SQLBook: Code
+-- Active: 1728889588376@@127.0.0.1@5432@movies@public
+SELECT * FROM movies
+-- SQLBook: Code
+SELECT * FROM movies
+WHERE movie_id = 1
+-- SQLBook: Code
+SELECT * FROM movies
+WHERE movie_id = '1'
+
+--  implicit conversion
+-- SQLBook: Code
+-- Explicit conversion
+SELECT * FROM movies
+WHERE movie_id = integer '1'
+-- SQLBook: Markup
+## CAST functions
+
+```sql
+CAST(expr AS type)
+```
+-- SQLBook: Code
+SELECT CAST('10' AS INT);
+-- SQLBook: Code
+SELECT CAST('10n' as INT)
+-- SQLBook: Code
+SELECT 
+    CAST('2024-01-01' AS DATE),
+    CAST('01-May-2024' AS DATE),
+    CAST('01-May-24' AS DATE);
+
+-- SQLBook: Markup
+### String to Boolean
+-- SQLBook: Code
+SELECT  
+    CAST('true' as BOOLEAN),
+    CAST('false' as BOOLEAN),
+    CAST('1' as BOOLEAN),
+    CAST('0' as BOOLEAN),
+    CAST('t' as BOOLEAN),
+    CAST('f' as BOOLEAN),
+    CAST('yes' as BOOLEAN),
+    CAST('no' as BOOLEAN),
+    CAST('y' as BOOLEAN),
+    CAST('n' as BOOLEAN)
+-- SQLBook: Markup
+### String to double
+-- SQLBook: Code
+SELECT
+    CAST('10.23' AS DOUBLE PRECISION)
+-- SQLBook: Markup
+## Other Syntax
+
+```sql
+expr::type
+```
+
+-- SQLBook: Code
+SELECT
+    '10'::int,
+    '10-12-24'::date
+-- SQLBook: Markup
+### String to timestamp
+-- SQLBook: Code
+SELECT
+    '2020-01-01 10:30:25'::Timestamp,
+    '2020-01-01 10:30:25'::Timestamptz
+-- SQLBook: Markup
+### string to interval
+-- SQLBook: Code
+SELECT
+    '10 hours'::interval,
+    '10 minutes'::interval,
+    '10 seconds'::interval
+-- SQLBook: Markup
+## Table data conversion
+-- SQLBook: Code
+CREATE TABLE ratings(
+    rating_id SERIAL PRIMARY KEY,
+    rating VARCHAR(1) NOT NULL
+)
+-- SQLBook: Code
+SELECT * FROM ratings
+-- SQLBook: Code
+INSERT INTO ratings(rating)
+VALUES
+    ('A'),
+    ('B'),
+    ('C'),
+    ('D'),
+    ('F'); 
+-- SQLBook: Code
+SELECT * FROM ratings
+-- SQLBook: Code
+INSERT INTO ratings(rating)
+VALUES
+    ('1'),
+    ('2'),
+    ('3'),
+    ('4'),
+    ('5');
+-- SQLBook: Code
+SELECT * FROM ratings
+-- SQLBook: Code
+SELECT 
+    rating_id,
+    CASE 
+        WHEN rating~E'^\\d+$' THEN  
+            CAST(rating AS INTEGER)
+        ELSE  
+            0
+    END as rating
+FROM ratings;
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
