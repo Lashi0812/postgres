@@ -1,0 +1,136 @@
+-- SQLBook: Markup
+## To number function
+
+Syntax:
+```sql
+to_number(string, fmt)
+```
+-- SQLBook: Code
+SELECT
+    to_number('1234.43', '9999.9')
+-- SQLBook: Code
+SELECT
+    to_number(
+        '10,234.78-',
+        '99G999D99S')
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
