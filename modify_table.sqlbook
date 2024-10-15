@@ -1,0 +1,172 @@
+-- SQLBook: Code
+-- Active: 1728889588376@@127.0.0.1@5432@mydata@public
+CREATE TABLE IF NOT EXISTS persons (
+    person_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL
+)
+-- SQLBook: Code
+SELECT * FROM persons
+-- SQLBook: Code
+ALTER TABLE persons
+ADD COLUMN age INT NOT NULL 
+-- SQLBook: Code
+SELECT * FROM persons
+-- SQLBook: Code
+ALTER TABLE persons
+ADD COLUMN nationality VARCHAR(20)
+-- SQLBook: Code
+SELECT * FROM persons
+-- SQLBook: Markup
+## Rename table
+-- SQLBook: Code
+ALTER TABLE persons
+RENAME TO users
+-- SQLBook: Code
+SELECT * FROM users
+-- SQLBook: Code
+ALTER TABLE users
+RENAME TO persons
+-- SQLBook: Markup
+
+
+## Rename column name
+-- SQLBook: Code
+ALTER TABLE persons
+RENAME COLUMN age to person_age
+-- SQLBook: Code
+SELECT * FROM persons
+-- SQLBook: Markup
+## Drop Column name
+-- SQLBook: Code
+ALTER TABLE persons
+DROP COLUMN person_age
+-- SQLBook: Markup
+## Change the data type of column
+
+-- SQLBook: Code
+ALTER Table persons
+ADD COLUMN age VARCHAR(10)
+-- SQLBook: Code
+ALTER TABLE persons
+ALTER COLUMN age TYPE INTEGER 
+-- SQLBook: Code
+ALTER TABLE persons
+ALTER COLUMN age TYPE INTEGER
+USING age::integer
+-- SQLBook: Code
+SELECT * FROM persons
+-- SQLBook: Markup
+## To Set the default column in a table
+-- SQLBook: Code
+ALTER TABLE persons
+ADD COLUMN is_enable VARCHAR(1)
+-- SQLBook: Code
+-- Active: 1728889588376@@127.0.0.1@5432@mydata@public
+ALTER TABLE persons
+ALTER COLUMN is_enable SET DEFAULT 'Y'
+-- SQLBook: Code
+SELECT * FROM persons
+-- SQLBook: Code
+INSERT INTO persons (first_name,last_name,nationality,age)
+VALUES
+    ('John','Doe','American',25),
+    ('Jane','Doe','British',30),
+    ('Mary','Smith','Irish',35)
+-- SQLBook: Code
+SELECT * FROM persons
+-- SQLBook: Markup
+## Add Constraint table
+-- SQLBook: Code
+CREATE TABLE web_links(
+    link_id SERIAL PRIMARY KEY,
+    link_url VARCHAR(100) NOT NULL,
+    link_target VARCHAR(20)
+)
+-- SQLBook: Code
+SELECT * FROM web_links
+-- SQLBook: Code
+INSERT into web_links(link_url,link_target)
+VALUES
+    ('https://www.google.com', '_blank')
+
+-- SQLBook: Code
+SELECT * FROM  web_links
+-- SQLBook: Code
+ALTER TABLE web_links
+ADD CONSTRAINT unique_web_url UNIQUE (link_url)
+-- SQLBook: Code
+INSERT into web_links(link_url,link_target)
+VALUES
+    ('https://www.google.com', '_blank')
+-- SQLBook: Code
+INSERT into web_links(link_url,link_target)
+VALUES
+    ('https://www.amazon.com', '_blank')
+-- SQLBook: Code
+SELECT * FROM web_links
+-- SQLBook: Markup
+# to set a column to accept only define allowed/acceptable values
+
+-- SQLBook: Code
+ALTER TABLE web_links
+ADD COLUMN is_enable VARCHAR(2)
+-- SQLBook: Code
+SELECT * FROM web_links
+-- SQLBook: Code
+INSERT INTO web_links (link_url,link_target,is_enable)
+VALUES
+    ('https://www.flex.com','_blank','Y')
+-- SQLBook: Code
+SELECT * FROM web_links
+-- SQLBook: Code
+ALTER TABLE web_links
+ADD CHECK (is_enable IN ('Y','N'))
+-- SQLBook: Code
+INSERT INTO web_links (link_url,link_target,is_enable)
+VALUES
+    ('https://www.db.com','_blank','F')
+-- SQLBook: Code
+INSERT INTO web_links (link_url,link_target,is_enable)
+VALUES
+    ('https://www.db.com','_blank','Y')
+-- SQLBook: Code
+SELECT * FROM web_links
+-- SQLBook: Code
+UPDATE web_links
+SET is_enable = 'Y'
+WHERE
+    is_enable IS NULL
+-- SQLBook: Code
+SELECT * FROM web_links
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
