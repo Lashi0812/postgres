@@ -1,0 +1,158 @@
+-- SQLBook: Markup
+## CREATE DOMAIN
+-- SQLBook: Markup
+### addr domain with VARCHAR
+-- SQLBook: Code
+CREATE DOMAIN addr VARCHAR(100) NOT NULL
+-- SQLBook: Code
+-- Active: 1728889588376@@127.0.0.1@5432@mydata@public
+CREATE TABLE locations (
+    address addr
+)
+-- SQLBook: Code
+SELECT * from locations
+-- SQLBook: Code
+INSERT INTO locations (address)
+VALUES
+    ('2017 Shinjuku-ku')
+-- SQLBook: Code
+SELECT * FROM locations
+-- SQLBook: Markup
+## postive numeric data type
+-- SQLBook: Code
+CREATE DOMAIN positive_numeric INT NOT NULL CHECK (value > 0);
+-- SQLBook: Code
+CREATE TABLE sample(
+    sample_id SERIAL PRIMARY KEY,
+    value_num positive_numeric
+)
+-- SQLBook: Code
+INSERT INTO sample (value_num)
+VALUES
+    (10)
+-- SQLBook: Code
+SELECT * FROM sample
+-- SQLBook: Code
+INSERT INTO sample (value_num)
+VALUES
+    (-10)
+-- SQLBook: Markup
+### email address
+-- SQLBook: Code
+CREATE DOMAIN proper_email VARCHAR(255)
+CHECK
+(
+    VALUE ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'
+)
+-- SQLBook: Code
+CREATE TABLE clients_names (
+    client_name_id SERIAL PRIMARY KEY,
+    email proper_email 
+)
+-- SQLBook: Code
+SELECT * FROM clients_names
+-- SQLBook: Code
+INSERT INTO clients_names (email)
+VALUES
+('a@b.com'),
+('b@c.com'),
+('c@d.com');
+-- SQLBook: Code
+SELECT * FROM clients_names
+-- SQLBook: Markup
+## Create Enum
+-- SQLBook: Code
+CREATE DOMAIN valid_color VARCHAR(10) 
+CHECK (VALUE IN ('red', 'green', 'blue'));
+-- SQLBook: Code
+CREATE TABLE colors (
+    color_id SERIAL PRIMARY KEY,
+    color_name valid_color
+)
+-- SQLBook: Code
+SELECT * FROM colors
+-- SQLBook: Code
+INSERT INTO colors (color_name)
+VALUES
+    ('red'),
+    ('green');
+    
+-- SQLBook: Code
+SELECT * FROM colors
+-- SQLBook: Code
+INSERT INTO colors(color_name)
+VALUES
+    ('black');
+-- SQLBook: Markup
+## List all the domain created in schema
+-- SQLBook: Code
+SELECT * FROM pg_catalog.pg_type
+-- SQLBook: Code
+SELECT * FROM pg_catalog.pg_namespace
+-- SQLBook: Code
+SELECT typname FROM pg_catalog.pg_type
+JOIN pg_catalog.pg_namespace
+ON pg_namespace.oid = pg_type.typnamespace
+WHERE
+typtype = 'd' AND nspname= 'public'
+-- SQLBook: Markup
+### Drop Domain name
+-- SQLBook: Code
+DROP DOMAIN positive_numeric;
+-- SQLBook: Code
+SELECT * FROM sample
+-- SQLBook: Code
+-- this delete the depend column
+DROP DOMAIN positive_numeric CASCADE;
+-- SQLBook: Code
+SELECT * FROM sample
+-- SQLBook: Markup
+## Composite data type
+
+think as named tuple
+-- SQLBook: Code
+CREATE TYPE address AS (
+    city VARCHAR(50),
+    country VARCHAR(50)
+)
+-- SQLBook: Code
+CREATE TABLE companies (
+    id SERIAL PRIMARY KEY,
+    address address
+)
+
+-- SQLBook: Code
+SELECT * from companies
+-- SQLBook: Code
+INSERT INTO companies (address) 
+VALUES 
+    (ROW('New York', 'USA')::address),
+    (ROW('London', 'UK')::address),
+    (ROW('Paris', 'France')::address),
+    (ROW('Tokyo', 'Japan')::address);
+
+-- SQLBook: Code
+SELECT * FROM companies
+-- SQLBook: Code
+SELECT (address).country  FROM companies
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
+
+-- SQLBook: Code
